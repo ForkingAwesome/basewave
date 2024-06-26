@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 
@@ -6,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { base, mainnet, sepolia } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import "../styles/globals.css"
 
 const config = getDefaultConfig({
   appName: "RainbowKit App",
