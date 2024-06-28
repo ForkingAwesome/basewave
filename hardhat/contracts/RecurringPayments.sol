@@ -211,7 +211,7 @@ abstract contract Ownable is Context {
     }
 }
 
-// File: RecurringPayments.sol
+// File: test.sol
 
 pragma solidity >=0.8.25;
 
@@ -260,9 +260,15 @@ contract RecurringPayments is ReentrancyGuard, Ownable {
         uint256 creationDate;
     }
 
+    struct CustomerPayeePair {
+        address customer;
+        address payee;
+    }
+
     // State Variables
     mapping(address => mapping(address => Subscription)) private subscriptions;
     mapping(address => SubscriptionReceipt[]) private receipts;
+    CustomerPayeePair[] private customerPayeePair;
 
     // Constructor
     constructor() Ownable(msg.sender) {}
@@ -334,6 +340,8 @@ contract RecurringPayments is ReentrancyGuard, Ownable {
             true,
             true
         );
+
+        customerPayeePair.push(CustomerPayeePair(msg.sender, _payee));
 
         receipts[msg.sender].push(
             SubscriptionReceipt(
@@ -429,32 +437,18 @@ contract RecurringPayments is ReentrancyGuard, Ownable {
         view
         returns (Subscription[] memory)
     {
-        uint256 count = 0;
-        for (uint256 i = 0; i < receipts[msg.sender].length; i++) {
-            if (
-                subscriptions[receipts[msg.sender][i].customer][
-                    receipts[msg.sender][i].payee
-                ].isActive
-            ) {
-                count++;
-            }
+        Subscription[] memory allSubscriptions = new Subscription[](
+            customerPayeePair.length
+        );
+
+        for (uint256 i = 0; i < customerPayeePair.length; i++) {
+            CustomerPayeePair memory _customerPayeePair = customerPayeePair[i];
+            allSubscriptions[i] = subscriptions[_customerPayeePair.customer][
+                _customerPayeePair.payee
+            ];
         }
 
-        Subscription[] memory plans = new Subscription[](count);
-        uint256 index = 0;
-        for (uint256 i = 0; i < receipts[msg.sender].length; i++) {
-            if (
-                subscriptions[receipts[msg.sender][i].customer][
-                    receipts[msg.sender][i].payee
-                ].isActive
-            ) {
-                plans[index] = subscriptions[receipts[msg.sender][i].customer][
-                    receipts[msg.sender][i].payee
-                ];
-                index++;
-            }
-        }
-        return plans;
+        return allSubscriptions;
     }
 
     function getAllSubscribers(
