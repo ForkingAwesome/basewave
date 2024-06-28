@@ -3,9 +3,9 @@ import type { AppProps } from "next/app";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { base, mainnet, sepolia } from "wagmi/chains";
+import { base, baseSepolia, mainnet, sepolia } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import "../styles/globals.css"
+import "../styles/globals.css";
 
 const config = getDefaultConfig({
   appName: "RainbowKit App",
@@ -13,7 +13,10 @@ const config = getDefaultConfig({
   chains: [
     mainnet,
     base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
+    baseSepolia,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [baseSepolia]
+      : []),
   ],
   ssr: true,
 });
@@ -25,8 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
-            {" "}
-            <Component {...pageProps} />
+          <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
