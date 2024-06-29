@@ -56,30 +56,37 @@ const Dashboard = () => {
     }
   }, [result2.data]);
 
+  const tableClassName = "min-w-full bg-white border border-gray-200 shadow-md rounded-lg";
+  const theadClassName = "bg-gray-100 border-b border-gray-200";
+  const thClassName = "px-4 py-2 text-left text-gray-600";
+  const tbodyClassName = "text-gray-700";
+  const trClassName = "border-b border-gray-200";
+  const tdClassName = "px-4 py-2";
+
   const displayCreatedSubs = (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-gray-200 shadow-lg rounded-lg">
-        <thead className="bg-gray-100 border-b border-gray-200">
+      <table className={tableClassName}>
+        <thead className={theadClassName}>
           <tr>
-            <th className="px-4 py-2 text-left">Index</th>
-            <th className="px-4 py-2 text-left">Allowance</th>
-            <th className="px-4 py-2 text-left">Creation Date</th>
-            <th className="px-4 py-2 text-left">Customer</th>
-            <th className="px-4 py-2 text-left">Description</th>
-            <th className="px-4 py-2 text-left">Name</th>
-            <th className="px-4 py-2 text-left">Payee</th>
+            <th className={thClassName}>Index</th>
+            <th className={thClassName}>Allowance</th>
+            <th className={thClassName}>Creation Date</th>
+            <th className={thClassName}>Customer</th>
+            <th className={thClassName}>Description</th>
+            <th className={thClassName}>Name</th>
+            <th className={thClassName}>Payee</th>
           </tr>
         </thead>
-        <tbody className="text-gray-700">
+        <tbody className={tbodyClassName}>
           {createdSubscriptions?.map((subscription, index) => (
-            <tr key={index} className="border-b border-gray-200">
-              <td className="px-4 py-2">{index}</td>
-              <td className="px-4 py-2">{subscription.allowance.toString()}</td>
-              <td className="px-4 py-2">{subscription.creationDate.toString()}</td>
-              <td className="px-4 py-2">{subscription.customer}</td>
-              <td className="px-4 py-2">{subscription.description}</td>
-              <td className="px-4 py-2">{subscription.name}</td>
-              <td className="px-4 py-2">{subscription.payee}</td>
+            <tr key={index} className={trClassName}>
+              <td className={tdClassName}>{index}</td>
+              <td className={tdClassName}>{subscription.allowance.toString()}</td>
+              <td className={tdClassName}>{subscription.creationDate.toString()}</td>
+              <td className={tdClassName}>{subscription.customer}</td>
+              <td className={tdClassName}>{subscription.description}</td>
+              <td className={tdClassName}>{subscription.name}</td>
+              <td className={tdClassName}>{subscription.payee}</td>
             </tr>
           ))}
         </tbody>
@@ -89,34 +96,34 @@ const Dashboard = () => {
 
   const displayAllSubscribers = (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-gray-200 shadow-lg rounded-lg">
-        <thead className="bg-gray-100 border-b border-gray-200">
+      <table className={tableClassName}>
+        <thead className={theadClassName}>
           <tr>
-            <th className="px-4 py-2 text-left">Index</th>
-            <th className="px-4 py-2 text-left">Allowance</th>
-            <th className="px-4 py-2 text-left">Customer</th>
-            <th className="px-4 py-2 text-left">Description</th>
-            <th className="px-4 py-2 text-left">Exists</th>
-            <th className="px-4 py-2 text-left">Is Active</th>
-            <th className="px-4 py-2 text-left">Last Execution Date</th>
-            <th className="px-4 py-2 text-left">Name</th>
-            <th className="px-4 py-2 text-left">Payee</th>
-            <th className="px-4 py-2 text-left">Subscription Period</th>
+            <th className={thClassName}>Index</th>
+            <th className={thClassName}>Allowance</th>
+            <th className={thClassName}>Customer</th>
+            <th className={thClassName}>Description</th>
+            <th className={thClassName}>Exists</th>
+            <th className={thClassName}>Is Active</th>
+            <th className={thClassName}>Last Execution Date</th>
+            <th className={thClassName}>Name</th>
+            <th className={thClassName}>Payee</th>
+            <th className={thClassName}>Subscription Period</th>
           </tr>
         </thead>
-        <tbody className="text-gray-700">
+        <tbody className={tbodyClassName}>
           {subscriptions?.map((subscription, index) => (
-            <tr key={index} className="border-b border-gray-200">
-              <td className="px-4 py-2">{index}</td>
-              <td className="px-4 py-2">{subscription.allowance.toString()}</td>
-              <td className="px-4 py-2">{subscription.customer}</td>
-              <td className="px-4 py-2">{subscription.description}</td>
-              <td className="px-4 py-2">{subscription.exists.toString()}</td>
-              <td className="px-4 py-2">{subscription.isActive.toString()}</td>
-              <td className="px-4 py-2">{subscription.lastExecutionDate.toString()}</td>
-              <td className="px-4 py-2">{subscription.name}</td>
-              <td className="px-4 py-2">{subscription.payee}</td>
-              <td className="px-4 py-2">{subscription.subscriptionPeriod.toString()}</td>
+            <tr key={index} className={trClassName}>
+              <td className={tdClassName}>{index}</td>
+              <td className={tdClassName}>{subscription.allowance.toString()}</td>
+              <td className={tdClassName}>{subscription.customer}</td>
+              <td className={tdClassName}>{subscription.description}</td>
+              <td className={tdClassName}>{subscription.exists.toString()}</td>
+              <td className={tdClassName}>{subscription.isActive.toString()}</td>
+              <td className={tdClassName}>{subscription.lastExecutionDate.toString()}</td>
+              <td className={tdClassName}>{subscription.name}</td>
+              <td className={tdClassName}>{subscription.payee}</td>
+              <td className={tdClassName}>{subscription.subscriptionPeriod.toString()}</td>
             </tr>
           ))}
         </tbody>
