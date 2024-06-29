@@ -28,7 +28,7 @@ const index = () => {
         abi: ABI_RECURRING_PAYMENTS,
         address: RECURRING_PAYMENTS_CONTRACT_ADDRESS,
         functionName: "executePayment",
-        args: ["0x369B9F5963Ae40F06FA87E001De4BE4C39F21F2B"],
+        args: ["0xb158224674F8128554E23d1E6eaA57AA045Febe3"],
       });
       console.log(result);
     } catch (error: any) {

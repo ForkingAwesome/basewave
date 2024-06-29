@@ -57,7 +57,8 @@ const Index = () => {
           parseInt(price),
           name,
           description,
-          subscriptionPeriod === "Weekly" ? DAY * 7 : DAY * 30,
+          10,
+          // subscriptionPeriod === "Weekly" ? DAY * 7 : DAY * 30,
         ],
       });
       console.log(result);
