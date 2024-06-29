@@ -1,3 +1,4 @@
+"use client";
 import { useReadContract } from "wagmi";
 import { ABI_RECURRING_PAYMENTS } from "../../utils/abiRecurringPayments";
 import { RECURRING_PAYMENTS_CONTRACT_ADDRESS } from "../../utils/constants";
@@ -25,13 +26,9 @@ type CreatedSubscriptionType = {
 };
 
 const Dashboard = () => {
-  const [createdSubscriptions, setCreatedSubscriptions] = useState<
-    CreatedSubscriptionType[] | undefined
-  >(undefined);
-
-  const [subscriptions, setSubscriptions] = useState<
-    SubscriptionType[] | undefined
-  >(undefined);
+  const [createdSubscriptions, setCreatedSubscriptions] = useState<CreatedSubscriptionType[] | undefined>(undefined);
+  const [subscriptions, setSubscriptions] = useState<SubscriptionType[] | undefined>(undefined);
+  const [selectedOption, setSelectedOption] = useState<"subscribers" | "created">("subscribers");
 
   const result = useReadContract({
     abi: ABI_RECURRING_PAYMENTS,
@@ -60,83 +57,104 @@ const Dashboard = () => {
   }, [result2.data]);
 
   const displayCreatedSubs = (
-    <table>
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>Allowance</th>
-          <th>Customer</th>
-          <th>Description</th>
-          <th>Exists</th>
-          <th>Is Active</th>
-          <th>Last Execution Date</th>
-          <th>Name</th>
-          <th>Payee</th>
-          <th>Subscription Period</th>
-        </tr>
-      </thead>
-      <tbody>
-        {createdSubscriptions?.map((subscription, index) => (
-          <tr key={index}>
-            <td>{index}</td>
-            <td>{subscription.allowance.toString()}</td>
-            <td>{subscription.creationDate.toString()}</td>
-            <td>{subscription.customer}</td>
-            <td>{subscription.description}</td>
-            <td>{subscription.name}</td>
-            <td>{subscription.payee}</td>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border-gray-200 shadow-lg rounded-lg">
+        <thead className="bg-gray-100 border-b border-gray-200">
+          <tr>
+            <th className="px-4 py-2 text-left">Index</th>
+            <th className="px-4 py-2 text-left">Allowance</th>
+            <th className="px-4 py-2 text-left">Creation Date</th>
+            <th className="px-4 py-2 text-left">Customer</th>
+            <th className="px-4 py-2 text-left">Description</th>
+            <th className="px-4 py-2 text-left">Name</th>
+            <th className="px-4 py-2 text-left">Payee</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="text-gray-700">
+          {createdSubscriptions?.map((subscription, index) => (
+            <tr key={index} className="border-b border-gray-200">
+              <td className="px-4 py-2">{index}</td>
+              <td className="px-4 py-2">{subscription.allowance.toString()}</td>
+              <td className="px-4 py-2">{subscription.creationDate.toString()}</td>
+              <td className="px-4 py-2">{subscription.customer}</td>
+              <td className="px-4 py-2">{subscription.description}</td>
+              <td className="px-4 py-2">{subscription.name}</td>
+              <td className="px-4 py-2">{subscription.payee}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   const displayAllSubscribers = (
-    <table>
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>Allowance</th>
-          <th>Customer</th>
-          <th>Description</th>
-          <th>Exists</th>
-          <th>Is Active</th>
-          <th>Last Execution Date</th>
-          <th>Name</th>
-          <th>Payee</th>
-          <th>Subscription Period</th>
-        </tr>
-      </thead>
-      <tbody>
-        {subscriptions?.map((subscription, index) => (
-          <tr key={index}>
-            <td>{index}</td>
-            <td>{subscription.allowance.toString()}</td>
-            <td>{subscription.customer}</td>
-            <td>{subscription.description}</td>
-            <td>{subscription.exists.toString()}</td>
-            <td>{subscription.isActive.toString()}</td>
-            <td>{subscription.lastExecutionDate.toString()}</td>
-            <td>{subscription.name}</td>
-            <td>{subscription.payee}</td>
-            <td>{subscription.subscriptionPeriod.toString()}</td>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border-gray-200 shadow-lg rounded-lg">
+        <thead className="bg-gray-100 border-b border-gray-200">
+          <tr>
+            <th className="px-4 py-2 text-left">Index</th>
+            <th className="px-4 py-2 text-left">Allowance</th>
+            <th className="px-4 py-2 text-left">Customer</th>
+            <th className="px-4 py-2 text-left">Description</th>
+            <th className="px-4 py-2 text-left">Exists</th>
+            <th className="px-4 py-2 text-left">Is Active</th>
+            <th className="px-4 py-2 text-left">Last Execution Date</th>
+            <th className="px-4 py-2 text-left">Name</th>
+            <th className="px-4 py-2 text-left">Payee</th>
+            <th className="px-4 py-2 text-left">Subscription Period</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="text-gray-700">
+          {subscriptions?.map((subscription, index) => (
+            <tr key={index} className="border-b border-gray-200">
+              <td className="px-4 py-2">{index}</td>
+              <td className="px-4 py-2">{subscription.allowance.toString()}</td>
+              <td className="px-4 py-2">{subscription.customer}</td>
+              <td className="px-4 py-2">{subscription.description}</td>
+              <td className="px-4 py-2">{subscription.exists.toString()}</td>
+              <td className="px-4 py-2">{subscription.isActive.toString()}</td>
+              <td className="px-4 py-2">{subscription.lastExecutionDate.toString()}</td>
+              <td className="px-4 py-2">{subscription.name}</td>
+              <td className="px-4 py-2">{subscription.payee}</td>
+              <td className="px-4 py-2">{subscription.subscriptionPeriod.toString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <button>Show Subscribed Things (User)</button>
-      <button>Show Created Subscribtions (Merchant)</button>
-      <br />
-      <br />
-      <div>{displayAllSubscribers}</div>
-      <br />
-      <br />
-      <div>{displayCreatedSubs}</div>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      <div className="space-x-4 mb-4">
+        <button
+          onClick={() => setSelectedOption("subscribers")}
+          className={`px-4 py-2 rounded-md ${selectedOption === "subscribers" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+        >
+          Show Subscribed Things (User)
+        </button>
+        <button
+          onClick={() => setSelectedOption("created")}
+          className={`px-4 py-2 rounded-md ${selectedOption === "created" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+        >
+          Show Created Subscriptions (Merchant)
+        </button>
+      </div>
+
+      {selectedOption === "subscribers" && (
+        <div>
+          <h2 className="text-xl font-bold mb-2">All Subscribers</h2>
+          {displayAllSubscribers}
+        </div>
+      )}
+
+      {selectedOption === "created" && (
+        <div>
+          <h2 className="text-xl font-bold mb-2">Created Subscriptions</h2>
+          {displayCreatedSubs}
+        </div>
+      )}
     </div>
   );
 };

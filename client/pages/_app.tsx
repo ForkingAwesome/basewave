@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
 import { base, baseSepolia, mainnet, sepolia } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import Nav from "../components/nav/nav";
 import "../styles/globals.css";
 
 const config = getDefaultConfig({
@@ -28,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

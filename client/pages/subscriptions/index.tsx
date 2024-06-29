@@ -1,6 +1,5 @@
 import {
   useReadContract,
-  useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
 import { ABI_RECURRING_PAYMENTS } from "../../utils/abiRecurringPayments";
@@ -8,11 +7,9 @@ import { RECURRING_PAYMENTS_CONTRACT_ADDRESS } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import { useClientStore } from "../../store";
 
-const index = () => {
+const Index = () => {
   const allSubscriptions = useClientStore((state) => state.allSubscriptions);
-  const setAllSubscriptions = useClientStore(
-    (state) => state.setAllSubscriptions
-  );
+  const setAllSubscriptions = useClientStore((state) => state.setAllSubscriptions);
 
   const [formData, setFormData] = useState({
     address: "",
@@ -36,54 +33,11 @@ const index = () => {
     }
   };
 
-  const displayAllSubscriptions = (
-    <table>
-      <thead>
-        <tr>
-          <th>Index</th>
-          <th>Allowance</th>
-          <th>Customer</th>
-          <th>Description</th>
-          <th>Exists</th>
-          <th>Is Active</th>
-          <th>Last Execution Date</th>
-          <th>Name</th>
-          <th>Payee</th>
-          <th>Subscription Period</th>
-        </tr>
-      </thead>
-      <tbody>
-        {allSubscriptions.map((subscription, index) => (
-          <tr key={index}>
-            <td>{index}</td>
-            <td>{subscription.allowance.toString()}</td>
-            <td>{subscription.customer}</td>
-            <td>{subscription.description}</td>
-            <td>{subscription.exists.toString()}</td>
-            <td>{subscription.isActive.toString()}</td>
-            <td>{subscription.lastExecutionDate.toString()}</td>
-            <td>{subscription.name}</td>
-            <td>{subscription.payee}</td>
-            <td>{subscription.subscriptionPeriod.toString()}</td>
-            {/* ADD POPUP ON CLICKING THIS BUTTON */}
-            <button onClick={subscribe}>
-              <td>Subscribe</td>
-            </button>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
   const { data } = useReadContract({
     abi: ABI_RECURRING_PAYMENTS,
     address: RECURRING_PAYMENTS_CONTRACT_ADDRESS,
     functionName: "getAllSubscriptionPlans",
   });
-
-  useEffect(() => {
-    console.log(allSubscriptions);
-  }, [allSubscriptions]);
 
   useEffect(() => {
     if (data) {
@@ -92,12 +46,35 @@ const index = () => {
   }, [data, setAllSubscriptions]);
 
   return (
-    <div>
-      <h1>Your Subscriptions</h1>
-      <br />
-      <div>{displayAllSubscriptions}</div>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">All Subscriptions</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {allSubscriptions.map((subscription, index) => (
+          <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="p-4">
+              <h2 className="text-lg font-bold mb-2">{subscription.name}</h2>
+              <p className="text-gray-600 mb-4">{subscription.description}</p>
+              <ul className="mb-4">
+                <li><strong>Allowance:</strong> {subscription.allowance.toString()}</li>
+                <li><strong>Customer:</strong> {subscription.customer}</li>
+                <li><strong>Exists:</strong> {subscription.exists.toString()}</li>
+                <li><strong>Is Active:</strong> {subscription.isActive.toString()}</li>
+                <li><strong>Last Execution Date:</strong> {subscription.lastExecutionDate.toString()}</li>
+                <li><strong>Payee:</strong> {subscription.payee}</li>
+                <li><strong>Subscription Period:</strong> {subscription.subscriptionPeriod.toString()}</li>
+              </ul>
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
+                onClick={subscribe}
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default index;
+export default Index;
