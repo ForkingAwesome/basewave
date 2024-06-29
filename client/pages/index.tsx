@@ -29,7 +29,7 @@ const Home: NextPage = () => {
             <p className="text-xl text-gray-700">
               OnChain Recurring Payments Made Simpler.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col items-center gap-4">
               <ConnectButton />
               <Link href="/create-subscription">
                 <div className="bg-[#0f76fd] z-20 p-2 rounded-xl shadow-md text-white font-semibold cursor-pointer">
