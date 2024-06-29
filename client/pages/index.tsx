@@ -3,47 +3,39 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-import { BackgroundGradientAnimation } from "../components/ui/background-gradient-animation";
 import Nav from "../components/nav/nav";
-import hero from "../assets/hero.png";
+import logo from "../assets/logo.png";
 
 const Home: NextPage = () => {
   return (
     <>
       <Nav />
-      <div className="flex justify-center items-center w-full h-screen bg-gradient-to-r from-blue-50 to-white">
+      <div className="flex flex-col justify-center items-center w-full min-h-screen bg-black text-white">
         <Head>
           <title>BaseWave</title>
           <meta content="BaseWave" name="description" />
           <link href="/favicon.ico" rel="icon" />
         </Head>
 
-        <main className="w-full flex items-center justify-center px-8">
-          <div className="space-y-6 w-[600px] flex flex-col">
-            <h1 className="text-5xl font-bold">
-              Welcome to{" "}
-              <a href="" className="italic font-serif underline">
-                BaseWave
-              </a>
+        <main className="w-full flex flex-col items-center justify-center px-8 text-center">
+          <div className="mb-8">
+            <Image src={logo} alt="BaseWave Logo" width={100} height={100} />
+          </div>
+          <div className="space-y-6 max-w-[600px] flex flex-col items-center">
+            <h1 className="text-6xl font-bold">
+              Ride the Future of Payments with Base Wave
             </h1>
-            <p className="text-xl text-gray-700">
-              OnChain Recurring Payments Made Simpler.
+            <p className="text-xl text-gray-300">
+              Frictionless, Decentralized Recurring Payments for the Digital Age
             </p>
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <ConnectButton />
               <Link href="/create-subscription">
-                <div className="bg-[#0f76fd] z-20 p-2 rounded-xl shadow-md text-white font-semibold cursor-pointer">
+                <div className="bg-blue-500 bg-opacity-50 z-20 px-4 py-2 rounded-xl shadow-md text-white font-semibold cursor-pointer hover:bg-opacity-70 transition-all duration-200">
                   Create Subscription
                 </div>
               </Link>
             </div>
-          </div>
-          <div className="w-1/2 h-screen flex justify-center items-center">
-            <Image
-              src={hero}
-              alt="Landing Page Image"
-              className="rounded-lg shadow-lg"
-            />
           </div>
         </main>
       </div>
